@@ -339,6 +339,9 @@ h3 {
   letter-spacing: -1px;
 
   color: rgb(51, 51, 51);
+
+  padding-bottom: 3px;
+  border-bottom: 1px solid purple;
 }
 
 article.fill h3 {

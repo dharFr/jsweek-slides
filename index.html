@@ -15,7 +15,7 @@
 
 <html>
   <head>
-    <title>Google I/O</title>
+    <title>JSWeek - Introduction à jQuery</title>
 
     <meta charset='utf-8' />
     <script src='slides.js'></script>
@@ -32,116 +32,460 @@
 
   <body style='display: none'>
 	<!-- This is the lightning timer, it autoadvances slides every 15 seconds -->
-	<div id="timer" class="floating advance">5:00</div>
+	<div id="timer" class="floating" style="display:none;">5:00</div>
 
     <section class='slides layout-regular'>
 
       <!-- Your slides (<article>s) go here. Delete or comment out the
            slides below. -->
 
-
-
-      <article class='biglogo'>
-      </article>
-
       <article>
-        <h1>
-          Title Goes Here Up
+        <h1>jQuery</h1>
+        <p>&nbsp;</p>
+        <p>
+          JSWeek - 23 Mars 2013
           <br>
-          To Two Lines
-        </h1>
-        <p>
-          Sergey Brin
-          <br>
-          May 10, 2011
+          Olivier Audard - <a href="https://www.twitter.com/@_dhar">@_dhar</a>
         </p>
       </article>
 
-      <article>
-        <p>
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
-        </p>
-        <p>
-          There is more text just underneath.
-        </p>
-      </article>
 
       <article>
         <h3>
-          Simple slide with header and text
+          C'est quoi jQuery au juste?
         </h3>
         <p>
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
+          jQuery est une librairie JavaScript qui facilite la construction d'application Web dynamiques compatibles avec tous les navigateurs.
         </p>
         <p>
-          There is more text just underneath with a <code>code sample: 5px</code>.
+          <ul>
+            <li>Sélecteurs</li>
+            <li>DOM Traversing et Manipulation</li>
+            <li>Événements</li>
+            <li>AJAX</li>
+            <li>Plug-ins</li>
+          </ul>
         </p>
       </article>
-
-      <article class='smaller'>
-        <h3>
-          Simple slide with header and text (small font)
-        </h3>
-        <p>
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
-          This is a slide with just text. This is a slide with just text.
-        </p>
-        <p>
-          There is more text just underneath with a <code>code sample: 5px</code>.
-        </p>
-      </article>
-
+      
       <article>
-        <h3>
-          Slide with bullet points and a longer title, just because we
-          can make it longer
-        </h3>
-        <ul>
-          <li>
-            Use this template to create your presentation
-          </li>
-          <li>
-            Use the provided color palette, box and arrow graphics, and
-            chart styles
-          </li>
-          <li>
-            Instructions are provided to assist you in using this
-            presentation template effectively
-          </li>
-          <li>
-            At all times strive to maintain Google's corporate look and feel
-          </li>
-        </ul>
+        <h3>À propos des versions</h3>
+        <p>
+          Il existe aujourd'hui 2 versions majeures :
+          <ul>
+            <li>1.x - Support d'IE6+ et des autres navigateurs</li>
+            <li>2.x - Support d'IE9+ et des autres navigateurs</li>
+          </ul>
+        </p>
+        <p>
+          Si vous devez supporter les versions 6, 7 ou 8 d'IE, vous devrez utiliser une version 1.x de jQuery.
+        </p>
+        <p>
+          La version 2.x est plus compacte et plus performante, mais n'est pas compatible avec les anciennes versions d'IE
+        </p>
       </article>
-
+      
       <article>
-        <h3>
-          Slide with bullet points that builds
-        </h3>
-        <ul class="build">
-          <li>
-            This is an example of a list
-          </li>
-          <li>
-            The list items fade in
-          </li>
-          <li>
-            Last one!
-          </li>
-        </ul>
-
+        <h2>Sélecteurs</h2>
+      </article>
+      
+      <article>
+        <h3>DOM Querying : JS vs $</h3>
+          <p>
+            JavaScript fourni déjà des méthodes :
+          </p>
+  <pre>
+    var element   = document.getElementById('element');
+    var listItems = document.getElementsByTagName('li');
+    var rows      = document.getElementsByClassName('row');
+    var txtInputs = document.querySelectorAll('input[type=text]');
+  </pre>
         <div class="build">
-          <p>Any element with child nodes can build.</p>
-          <p>It doesn't have to be a list.</p>
+          <p>
+            jQuery fourni une interface uniforme :
+          </p>
+  <pre>
+    var element   = $('#element');
+    var listItems = $('li');
+    var rows      = $('.row');
+    var txtInputs = $('input[type=text]');
+  </pre>
         </div>
       </article>
+      
+      <article class="smaller">
+        <h3>Sélecteurs</h3>
+        <p>
+          Les sélecteurs sont principalement définis par la syntaxe CSS :
+        </p>
+  <pre>
+  $('h1, h2, h3')     // Tous les éléments h1, h2 et h3
+  $('#id')            // l'élément dont l'identifiant est 'id'
+  $('.class')         // Tous les éléments qui possèdent la classe 'class'
+  $('[name="value"]') // Tous les éléments dont l'attribut 'name' vaut 'value'
+  $('ul > li')        // Tous les éléments 'li' dont le parent direct est 'ul'
+  </pre>
+        <p>
+          Mais pas seulement, jQuery en ajoute aussi :
+        </p>
+  <pre>
+  $('a:not([title])') // Tous les éléments a qui n'ont pas d'attribut 'title'
+  $('td:even')        // Un élément 'td' sur deux à partir du premier
+  $(':input')         // Tous les éléments 'input', 'textarea', 'select' et 'button'
+  $(':visible')       // Tous les éléments visibles
+  $('article.contenu div > a:not([title]):even, h3#titre section > article') // wtf?
+  </pre>
+        <a href="http://api.jquery.com/category/selectors/">...et beaucoup d'autres</a>
+      </article>
+      
+      <article>
+        <h3>Sélecteurs : Exercice</h3>
+        <p>
+          quelques instructions...
+        </p>
+      </article>
+      
+      <article>
+        <h2>DOM Traversing et Manipulation</h2>
+      </article>
 
-      <article class="auto" data-build-time=3000>
+      <article>
+        <h3>Parcourir le DOM...</h3>
+        <p>
+          Là encore, JavaScript permet déjà de parcourir le DOM:
+        </p>
+<pre>
+  var items = document.getElementsByTagName('a');
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    item.style.color = 'purple';
+  }
+</pre>
+        <div class="build">
+          <p>
+            Avec jQuery, ça devient simplement plus facile:
+          </p>
+<pre>
+  $('a').each(function(item) {
+    item.style.color = 'purple';
+  });
+</pre>
+<pre>
+  $('a').css('color', 'purple');  // ...parfois très facile
+</pre>
+        </div>
+      </article>
+      
+      <article class="smaller">
+        <h3>Parcourir le DOM...</h3>
+        <p>
+          De nombreuses fonctions permettent de parcourir le DOM à partir d'une sélection :
+        </p>
+        <table>
+          <tr>
+            <th></th>
+            <th>La sélection contient...</th>
+          </tr>
+          <tr>
+            <td>.next()</td>
+            <td>...l'élément suivant</td>
+          </tr>
+          <tr>
+            <td>.parent()</td>
+            <td>...l'élément parent</td>
+          </tr>
+          <tr>
+            <td>.children()</td>
+            <td>...les éléments enfants</td>
+          </tr>
+          <tr>
+            <td>.closest()</td>
+            <td>...le plus proche</td>
+          </tr>
+          <tr>
+            <td>.siblings()</td>
+            <td>...les éléments frères</td>
+          </tr>
+        </table>
+  <pre>
+    // Par exemple : 
+    $('.child').closest('li')
+  </pre>
+      </article>
+      
+      <article class="smaller">
+        <h3>Filtrer les résultats</h3>
+        <p>
+          Il est parfois intéressant de réduire filtrer la liste d'éléments sélectionnés.
+          jQuery fourni là aussi quelles méthodes utiles :
+        </p>
+        <table>
+          <tr>
+            <th></th>
+            <th>Ne conserve que...</th>
+          </tr>
+          <tr>
+            <td>.filter()</td>
+            <td>...les éléments qui correspondent au filtre défini</td>
+          </tr>
+          <tr>
+            <td>.first()</td>
+            <td>...le premier élément</td>
+          </tr>
+          <tr>
+            <td>.last()</td>
+            <td>...le dernier élément</td>
+          </tr>
+          <tr>
+            <td>.has()</td>
+            <td>...les éléments qui ont des descendants qui correspondent</td>
+          </tr>
+          <tr>
+            <td>.not()</td>
+            <td>...les éléments qui ne correspondent pas au critère</td>
+          </tr>
+        </table>
+  <pre>
+    // Par exemple : 
+    $('ul li').filter(':odd').first()
+  </pre>
+      </article>
+      <article class="smaller">
+        <h3>Manipuler le DOM...</h3>
+        <p>
+          Manipuler le DOM revient à créer, modifier ou supprimer des éléments de la page HTML.
+        </p>
+        <table>
+          <tr>
+            <th></th>
+            <th>La fonction donne accès...</th>
+          </tr>
+          <tr>
+            <td>.html()</td>
+            <td>...au contenu HTML d'un élément </td>
+          </tr>
+          <tr>
+            <td>.text()</td>
+            <td>...au contenu texte d'un élément (sans le HTML)</td>
+          </tr>
+          <tr>
+            <td>.attr()</td>
+            <td>...à la valeur d'un attribut</td>
+          </tr>
+          <tr>
+            <td>.width()</td>
+            <td>...à la largeur d'un élément</td>
+          </tr>
+          <tr>
+            <td>.height()</td>
+            <td>...à la hauteur d'un élément</td>
+          </tr>
+          <tr>
+            <td>.val()</td>
+            <td>...à la valeur d'un élément de formulaire</td>
+          </tr>
+        </table>
+  <pre>
+    // Par exemple : 
+    $('h1:first').text('Hello JSWeek..!')
+  </pre>
+      </article>
+      
+      <article>
+        <h3>Créer de nouveaux éléments</h3>
+        <p>
+          
+        </p>
+  <pre>
+    // JavaScript
+    var newEl = document.createElement('div');
+    newEl.textContent = 'Un nouvel élément';
+    
+    // jQuery 
+    var newEl= $('&lt;div&gt;Un nouvel élément&lt;/div&gt;');
+  </pre>
+        <p>
+          Il est aussi possible de définir des attributs via un objet:
+  <pre>
+    var newEl= $('&lt;a/&gt;', {
+      html: 'nouveau lien',
+      href = 'uneautrepage.html'
+    });
+  </pre>
+        </p>
+      </article>
+      
+      <article>
+        <h3>Ajouter des éléments</h3>
+        <p>
+          Après avoir créé un nouvel élément, il faut l'ajouter à la page pour qu'il soit affiché.
+        </p>
+  <pre>
+    $(body).append(newEl);
+  </pre>
+        <p>
+          Plusieurs fonctions existent pour insérer, déplacer, copier ou supprimer des éléments sur une page:
+        </p>
+        <table>
+          <tr>
+            <td>.appendTo()</td>
+            <td>.prependTo()</td>
+            <td>.after()</td>
+            <td>.detach()</td>
+          </tr>
+          <tr>
+            <td>.insertBefore()</td>
+            <td>.prepend()</td>
+            <td>.clone()</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>.insertAfter()</td>
+            <td>.before()</td>
+            <td>.remove()</td>
+            <td></td>
+          </tr>
+        </table>
+      </article>
+      
+      <article>
+        <h3>DOM Traversing et Manipulation : Exercice</h3>
+        <p>
+          quelques instructions...
+        </p>
+      </article>
+      
+      <article>
+        <h2>Événements</h2>
+      </article>
+      
+      <article>
+        <h3>Gestionnaire d'événements</h3>
+        <p>
+          En plus de simplifier la syntaxe, jQuery s'occupe de la compatibilité avec les anciens navigateurs et fourni une interface homogène pour tous les navigateurs.
+        </p>
+  <pre>
+    // JavaScript
+    var button = document.getElementById('resetBtn');
+    
+    if(button.addEventListener) {
+      button.addEventListener('click', doReset, false);
+    }
+    // IE &lt; 9
+    else if(button.attachEvent)  {
+      button.attachEvent('onclick', doReset);
+    }
+    
+    // jQuery 
+    $('#resetBtn').on('click', doReset);
+  </pre>
+      </article>
+      
+      <article>
+        <h3>Are you ready?</h3>
+        <p>
+          L' événement spécial <strong>ready</strong> assure que le DOM est prêt à être utilisé, même si la page n'est pas complètement chargée.
+        </p>
+        
+  <pre>
+    $(document).ready(function(){
+      $("p").text("Le DOM est chargé et peut être manipulé.");
+    });
+    
+    // Équivalent
+    $(function(){
+      $("p").text("Le DOM est chargé et peut être manipulé.");
+    });
+  </pre>
+      </article>
+      
+      <article>
+        <h3>Événements : Exercice</h3>
+        <p>
+          quelques instructions...
+        </p>
+      </article>
+      
+      <article>
+        <h2>AJAX</h2>
+      </article>
+      
+      <article>
+        <h3>AJAX</h3>
+        <p>
+          <a href="https://fr.wikipedia.org/wiki/Asynchronous_JavaScript_and_XML">AJAX</a> (Asynchronous JavaScript and XML) permet de construire des applications Web et des sites web dynamiques interactifs sur le poste client.
+        </p>
+        <p>
+          En Ajax, comme le nom l'indique, les demandes sont effectuées de manière asynchrone.
+        </p>
+        <div class="author">
+          Wikipedia FR
+        </div>
+      </article>
+      
+      <article class="smaller">
+        <h3>Oui ? Mais encore...</h3>
+        <p>
+          En pratique, cela revient à télécharger des données depuis le serveur, le plus souvent au format JSON.
+        </p>
+        <p>
+          Là encore, jQuery fourni une interface consistante pour tous les navigateurs et se charge d'assurer la compatibilité avec les plus anciens.
+        </p>
+  <pre>
+  $.getJSON('ajax/test.json')
+    .done(function(data) {
+      console.log('Woohoo!', data);
+    })
+    .fail(function(jqXHR, status){ console.log('oups', status); })
+    .always(function(){ console.log('finalement.'); });
+  </pre>
+        <table>
+          <tr>
+            <td>$.ajax()</td>
+            <td>$.post()</td>
+          </tr>
+          <tr>
+            <td>$.get()</td>
+            <td>$.load()</td>
+          </tr>
+          <tr>
+            <td>$.getScript()</td>
+            <td>$.getJSON()</td>
+          </tr>
+        </table>
+     </article> 
+      <article>
+        <h3>AJAX : Exercice</h3>
+        <p>
+          quelques instructions...
+        </p>
+      </article>
+      
+      <article>
+        <h2>Plug-ins</h2>
+      </article>
+      
+      <article>
+        <h3>Plug-ins</h3>
+        <p>
+          On est vraiment arrivés jusque là... On dirait que vous assurez!
+        </p>
+      </article>
+      
+      <article>
+        <h1>Bonus...</h1>
+      </article>
+      
+      <article>
+        <h2>Deferred Object</h2>
+      </article>
+      
+      <article>
+        <h2>Build your own jQuery</h2>
+      </article>
+
+
+      <!--<article class="auto" data-build-time=3000>
         <h3>
           Slide with bullet points that automatically builds
         </h3>
@@ -156,75 +500,9 @@
             The timer is adjustable with a data element
           </li>
         </ul>
-      </article>
+      </article>-->
 
-      <article class='smaller'>
-        <h3>
-          Slide with bullet points (small font)
-        </h3>
-        <ul>
-          <li>
-            Use this template to create your presentation
-          <li>
-            Use the provided color palette, box and arrow graphics, and
-            chart styles
-          <li>
-            Instructions are provided to assist you in using this
-            presentation template effectively
-          <li>
-            At all times strive to maintain Google's corporate look and feel
-        </ul>
-      </article>
-
-      <article>
-        <h3>
-          Slide with a table
-        </h3>
-
-        <table>
-          <tr>
-            <th>
-              Name
-            <th>
-              Occupation
-          <tr>
-            <td>
-              Luke Mahé
-            <td>
-              V.P. of Keepin’ It Real
-          <tr>
-            <td>
-              Marcin Wichary
-            <td>
-              The Michael Bay of Doodles
-        </table>
-      </article>
-
-      <article class='smaller'>
-        <h3>
-          Slide with a table (smaller text)
-        </h3>
-
-        <table>
-          <tr>
-            <th>
-              Name
-            <th>
-              Occupation
-          <tr>
-            <td>
-              Luke Mahé
-            <td>
-              V.P. of Keepin’ It Real
-          <tr>
-            <td>
-              Marcin Wichary
-            <td>
-              The Michael Bay of Doodles
-        </table>
-      </article>
-
-      <article>
+      <!-- <article>
         <h3>
           Styles
         </h3>
@@ -244,15 +522,10 @@
           <li>
             <b>bold</b> and <i>italic</i>
         </ul>
-      </article>
+      </article> -->
 
-      <article>
-        <h2>
-          Segue slide
-        </h2>
-      </article>
 
-      <article>
+      <!-- <article>
         <h3>
           Slide with an image
         </h3>
@@ -262,9 +535,9 @@
         <div class='source'>
           Source: Sergey Brin
         </div>
-      </article>
+      </article> -->
 
-      <article>
+      <!-- <article>
         <h3>
           Slide with an image (centered)
         </h3>
@@ -274,9 +547,9 @@
         <div class='source'>
           Source: Larry Page
         </div>
-      </article>
+      </article> -->
 
-      <article class='fill'>
+      <!-- <article class='fill'>
         <h3>
           Image filling the slide (with optional header)
         </h3>
@@ -286,104 +559,36 @@
         <div class='source white'>
           Source: Eric Schmidt
         </div>
-      </article>
+      </article> -->
 
-      <article>
-        <h3>
-          This slide has some code
-        </h3>
-        <section>
-        <pre>
-&lt;script type='text/javascript'&gt;
-  // Say hello world until the user starts questioning
-  // the meaningfulness of their existence.
-  function helloWorld(world) {
-    for (var i = 42; --i &gt;= 0;) {
-      alert('Hello ' + String(world));
-    }
-  }
-&lt;/script&gt;
-&lt;style&gt;
-  p { color: pink }
-  b { color: blue }
-  u { color: 'umber' }
-&lt;/style&gt;
-</pre>
-        </section>
-      </article>
-
-      <article class='smaller'>
-        <h3>
-          This slide has some code (small font)
-        </h3>
-        <section>
-        <pre>
-&lt;script type='text/javascript'&gt;
-  // Say hello world until the user starts questioning
-  // the meaningfulness of their existence.
-  function helloWorld(world) {
-    for (var i = 42; --i &gt;= 0;) {
-      alert('Hello ' + String(world));
-    }
-  }
-&lt;/script&gt;
-&lt;style&gt;
-  p { color: pink }
-  b { color: blue }
-  u { color: 'umber' }
-&lt;/style&gt;
-</pre>
-        </section>
-      </article>
-
-      <article>
+      <!-- <article>
         <q>
           The best way to predict the future is to invent it.
         </q>
         <div class='author'>
           Alan Kay
         </div>
-      </article>
+      </article> -->
 
-      <article class='smaller'>
-        <q>
-          A distributed system is one in which the failure of a computer
-          you didn’t even know existed can render your own computer unusable.
-        </q>
-        <div class='author'>
-          Leslie Lamport
-        </div>
-      </article>
 
-      <article class='nobackground'>
+      <!-- <article class='nobackground'>
         <h3>
           A slide with an embed + title
         </h3>
-
+      
         <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
-      </article>
+      </article> -->
 
-      <article class='nobackground'>
+      <!-- <article class='nobackground'>
         <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
-      </article>
+      </article> -->
 
-      <article class='fill'>
+      <!-- <article class='fill'>
         <h3>
           Full-slide embed with (optional) slide title on top
         </h3>
         <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
-      </article>
-
-      <article>
-        <h3>
-          Thank you!
-        </h3>
-
-        <ul>
-          <li>
-            <a href='http://www.google.com'>google.com</a>
-        </ul>
-      </article>
+      </article> -->
 
     </section>
 
